@@ -1,1 +1,45 @@
-<p>Photo Upload works!</p>
+<div class="upload-container">
+  <mat-card class="upload-card">
+    <mat-card-header>
+      <mat-card-title>Upload Your Photos</mat-card-title>
+      <mat-card-subtitle>Select one or more photos to create magnetic memories</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="upload-area" (click)="fileInput.click()">
+        <input
+          #fileInput
+          type="file"
+          multiple
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          style="display: none"
+        >
+        <mat-icon class="upload-icon">cloud_upload</mat-icon>
+        <p>Click to select photos or drag them here</p>
+      </div>
+
+      <div class="photo-grid" *ngIf="photos.length > 0">
+        <mat-card class="photo-card" *ngFor="let photo of photos; let i = index">
+          <img [src]="photo.url" [alt]="photo.name">
+          <div class="photo-details">
+            <span class="photo-name">{{ photo.name }}</span>
+            <span class="photo-size">{{ photo.size | fileSize }}</span>
+            <button mat-icon-button class="remove-button" (click)="removePhoto(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" 
+              [disabled]="photos.length === 0"
+              (click)="continueToCart()">
+        <mat-icon>shopping_cart</mat-icon>
+        Continue to Cart
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

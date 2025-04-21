@@ -1,1 +1,64 @@
-<p>Cart works!</p>
+<div class="cart-container">
+  <mat-card class="cart-card">
+    <mat-card-header>
+      <mat-card-title>Your Cart</mat-card-title>
+      <mat-card-subtitle>Review your magnetic photos before ordering</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="cart-layout">
+        <!-- Photos Section -->
+        <div class="photos-section">
+          <div class="cart-grid">
+            <mat-card class="photo-card" *ngFor="let photo of cartPhotos; let i = index">
+              <img [src]="photo.url" [alt]="photo.name">
+              <div class="photo-details">
+                <span class="photo-name">{{ photo.name }}</span>
+                <span class="photo-size">{{ photo.size | fileSize }}</span>
+                <button mat-icon-button color="warn" (click)="removeFromCart(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card>
+          </div>
+
+          <div class="cart-summary" *ngIf="cartPhotos.length">
+            <p>Total Items: {{ cartPhotos.length }}</p>
+            <p>Price per photo: $5.99</p>
+            <p class="total">Total: ${{ cartPhotos.length * 5.99 | number:'1.2-2' }}</p>
+          </div>
+
+          <div class="empty-cart" *ngIf="!cartPhotos.length">
+            <mat-icon>shopping_cart</mat-icon>
+            <p>Your cart is empty</p>
+            <button mat-raised-button color="primary" routerLink="/photo-upload">
+              Upload Photos
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section" *ngIf="cartPhotos.length">
+          <!-- Delivery Details Section -->
+          <div class="delivery-section">
+            <app-delivery-details 
+              (deliveryDetailsChange)="onDeliveryDetailsChange($event)">
+            </app-delivery-details>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="cartPhotos.length">
+      <button mat-stroked-button routerLink="/photo-upload">
+        <mat-icon>add_photo_alternate</mat-icon>
+        Add More Photos
+      </button>
+      <button mat-raised-button color="primary" (click)="placeOrder()" 
+              [disabled]="!deliveryDetails">
+        <mat-icon>shopping_cart_checkout</mat-icon>
+        Place Order
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

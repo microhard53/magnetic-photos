@@ -1,0 +1,107 @@
+.delivery-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 20px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+button {
+  margin-top: 1rem;
+  height: 48px;
+  font-size: 16px;
+}
+
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+mat-form-field {
+  margin-bottom: 8px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.delivery-details-summary {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.delivery-details-summary h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.delivery-details-summary p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.delivery-details-summary strong {
+  color: #666;
+  margin-right: 8px;
+}
+
+button[mat-stroked-button] {
+  margin-top: 16px;
+}
+
+button[mat-stroked-button] mat-icon {
+  margin-right: 8px;
+} 

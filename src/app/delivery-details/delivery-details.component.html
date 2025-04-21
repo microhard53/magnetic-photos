@@ -1,1 +1,84 @@
-<p>Delivery Details works!</p>
+<div class="delivery-form-container">
+  <h2>Delivery Details</h2>
+  <div *ngIf="isFormVisible">
+    <form [formGroup]="deliveryForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName" placeholder="Enter your full name">
+        <mat-error *ngIf="deliveryForm.get('fullName')?.hasError('required')">
+          Full name is required
+        </mat-error>
+        <mat-error *ngIf="deliveryForm.get('fullName')?.hasError('minlength')">
+          Full name must be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Delivery Address</mat-label>
+        <textarea matInput formControlName="address" placeholder="Enter your complete delivery address"></textarea>
+        <mat-error *ngIf="deliveryForm.get('address')?.hasError('required')">
+          Address is required
+        </mat-error>
+        <mat-error *ngIf="deliveryForm.get('address')?.hasError('minlength')">
+          Address must be at least 10 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" placeholder="Enter your city">
+        <mat-error *ngIf="deliveryForm.get('city')?.hasError('required')">
+          City is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Postal Code</mat-label>
+        <input matInput formControlName="postalCode" placeholder="Enter your postal code">
+        <mat-error *ngIf="deliveryForm.get('postalCode')?.hasError('required')">
+          Postal code is required
+        </mat-error>
+        <mat-error *ngIf="deliveryForm.get('postalCode')?.hasError('pattern')">
+          Postal code must be 5 digits
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Delivery Day</mat-label>
+        <mat-select formControlName="deliveryDay">
+          <mat-option value="">Select a day</mat-option>
+          <mat-option value="tomorrow">Tomorrow</mat-option>
+          <mat-option value="dayAfterTomorrow">Day After Tomorrow</mat-option>
+        </mat-select>
+        <mat-error *ngIf="deliveryForm.get('deliveryDay')?.hasError('required')">
+          Delivery day is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Special Instructions</mat-label>
+        <textarea matInput formControlName="specialInstructions" 
+                  placeholder="Any special delivery instructions (optional)"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!deliveryForm.valid">
+        Submit Delivery Details
+      </button>
+    </form>
+  </div>
+  <div *ngIf="!isFormVisible" class="delivery-details-summary">
+    <h3>Delivery Details Submitted</h3>
+    <p><strong>Name:</strong> {{ deliveryForm.get('fullName')?.value }}</p>
+    <p><strong>Address:</strong> {{ deliveryForm.get('address')?.value }}</p>
+    <p><strong>City:</strong> {{ deliveryForm.get('city')?.value }}</p>
+    <p><strong>Postal Code:</strong> {{ deliveryForm.get('postalCode')?.value }}</p>
+    <p><strong>Delivery Day:</strong> {{ deliveryForm.get('deliveryDay')?.value }}</p>
+    <p *ngIf="deliveryForm.get('specialInstructions')?.value">
+      <strong>Special Instructions:</strong> {{ deliveryForm.get('specialInstructions')?.value }}
+    </p>
+    <button mat-stroked-button (click)="showForm()">
+      <mat-icon>edit</mat-icon>
+      Edit Details
+    </button>
+  </div>
+</div>

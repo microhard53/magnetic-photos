@@ -1,1 +1,55 @@
-<p>Order Confirmation works!</p>
+<div class="confirmation-container">
+  <mat-card class="confirmation-card">
+    <div *ngIf="loading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Verifying your payment...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-container">
+      <mat-icon color="warn" class="error-icon">error_outline</mat-icon>
+      <h2>Payment Verification Failed</h2>
+      <p>{{ errorMessage }}</p>
+      <button mat-raised-button color="primary" (click)="router.navigate(['/cart'])">
+        <mat-icon>shopping_cart</mat-icon>
+        Return to Cart
+      </button>
+    </div>
+
+    <div *ngIf="paymentVerified && order" class="success-container">
+      <mat-icon color="primary" class="success-icon">check_circle</mat-icon>
+      <h2>Order Confirmed!</h2>
+      <p>Thank you for your purchase. Your order has been successfully processed.</p>
+
+      <div class="order-details">
+        <h3>Order Details</h3>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Total Amount:</strong> ${{ order.totalAmount | number:'1.2-2' }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Date:</strong> {{ order.createdAt | date:'medium' }}</p>
+      </div>
+
+      <div class="delivery-details">
+        <h3>Delivery Information</h3>
+        <p><strong>Name:</strong> {{ order.deliveryDetails.fullName }}</p>
+        <p><strong>Address:</strong> {{ order.deliveryDetails.address }}</p>
+        <p><strong>City:</strong> {{ order.deliveryDetails.city }}</p>
+        <p><strong>Postal Code:</strong> {{ order.deliveryDetails.postalCode }}</p>
+        <p><strong>Delivery Day:</strong> {{ order.deliveryDetails.deliveryDay }}</p>
+        <p *ngIf="order.deliveryDetails.specialInstructions">
+          <strong>Special Instructions:</strong> {{ order.deliveryDetails.specialInstructions }}
+        </p>
+      </div>
+
+      <div class="action-buttons">
+        <button mat-stroked-button routerLink="/photo-upload">
+          <mat-icon>add_photo_alternate</mat-icon>
+          Upload More Photos
+        </button>
+        <button mat-raised-button color="primary" (click)="navigateToOrderHistory()">
+          <mat-icon>history</mat-icon>
+          View Order History
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

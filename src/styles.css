@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Add some basic Material Design spacing */
+.mat-mdc-card {
+  margin: 16px;
+}
+
+/* Ensure proper spacing for toolbar */
+.mat-toolbar {
+  margin-bottom: 16px;
+}
